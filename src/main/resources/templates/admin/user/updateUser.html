@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" th:href="@{/css/admin/user/user.css}" />
+</head>
+
+<body>
+
+<header role="banner">
+    <h1>Admin Panel</h1>
+    <ul class="utilities">
+        <br>
+        <li class="users"><a href="/manageAccount">My Account</a></li>
+        <li class="logout warn"><a href="/logout">Log Out</a></li>
+    </ul>
+</header>
+
+<nav role='navigation'>
+    <ul class="main">
+        <li class="dashboard"><a href="/admin">Dashboard</a></li>
+        <li class="edit"><a href="/admin/product">Products</a></li>
+        <li class="write"><a href="/admin/category">Category</a></li>
+        <li class="comments"><a href="/admin/inventory">Inventory</a></li>
+        <li class="users"><a href="/admin/manage">User Management</a></li>
+    </ul>
+</nav>
+
+<main role="main">
+
+    <section class="panel important">
+        <h2>User Management - Add User</h2>
+    </section>
+
+    <section class="panel important">
+        <h2>Update User Details</h2>
+        <form th:action="@{/admin/manage/addUser}" method="post" >
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" th:value="${user.firstName}" required />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" th:value="${user.lastName}" required />
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" th:value="${user.email}" required />
+            </div>
+            <div class="form-group">
+                <label for="password">password:</label>
+                <input type="password" id="password" name="password" th:value="${user.password}" required />
+            </div>
+            <div class="form-group">
+                <button type="submit">Update User</button>
+            </div>
+        </form>
+    </section>
+
+</main>
+
+
+
+</body>
+
+</html>
