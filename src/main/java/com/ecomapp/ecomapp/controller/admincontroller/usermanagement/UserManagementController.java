@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -125,6 +126,62 @@ public class UserManagementController {
         }
         return "redirect:/admin/manage/adminSettings";
 
+    }
+
+    @PostMapping("/updateUser/{id}")
+    public String updateUserForm(@PathVariable("id") Long userId, Model model, Authentication authentication) {
+
+        String username = authentication.getName();
+        User currentUser = userService.findByUsername(username);
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID: " + userId));
+
+        model.addAttribute("user", user);
+        model.addAttribute("userId", userId); // Add the userId to be used in the form action
+        if (currentUser.isBlocked()){
+            return "blocked";
+        }
+        return "admin/user/updateUser";
+    }
+
+    @PostMapping("/updateUserById/{id}")
+    public String updateUserInfo(@PathVariable("id") Long userId,@ModelAttribute("user") UserDto userDto) throws Exception {
+        // Perform the user update operation here
+        // You can use the userService to update the user's information
+
+        System.out.println("in updateuser info");
+        System.out.println(userDto);
+        userService.updateUser(userId,userDto);
+
+        // Redirect to a suitable page after updating the user
+        return "redirect:/admin/manage/manageUser";
+    }
+
+    @GetMapping("/search")
+    public String searchUsers(@RequestParam("queryType") String queryType,
+                              @RequestParam("queryWord") String query,
+                              Model model) {
+
+        List<User> users = new ArrayList<>();
+
+        if("firstName".equals(queryType)){
+            users = userRepository.findByFirstNameContaining(query);
+        } else if ("lastName".equals(queryType)) {
+            users = userRepository.findByLastNameContaining(query);
+        } else if ("email".equals(queryType)) {
+            users = userRepository.findByEmailContaining(query);
+        }
+
+        for (User user : users) {
+            System.out.println("User Found: " + user.getFirstName() + " " + user.getLastName() + " - " + user.getEmail());
+        }
+        if(users.isEmpty()){
+            return "no_user_found";
+        }
+        System.out.println("printing user ," + users);
+        model.addAttribute("listSearchUsers",users);
+        return "admin/user/userSearchResults";
     }
 
 

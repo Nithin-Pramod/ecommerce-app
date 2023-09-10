@@ -13,4 +13,6 @@ public interface UserService extends UserDetailsService {
     void deleteUserById(long id);
 
     User findByUsername(String username);
+
+    void updateUser(Long userId, UserDto user) throws Exception;
 }

@@ -91,4 +91,17 @@ public class User {
     public boolean isBlocked() {
         return blocked;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", blocked=" + blocked +
+                ", roles=" + roles +
+                '}';
+    }
 }

@@ -89,6 +89,12 @@
                 </thead>
                 <tbody>
                 <!-- User data will be dynamically populated here using JavaScript -->
+                <tr th:each="user : ${listSearchUsers}">
+                    <td th:text="${user.firstName}"></td>
+                    <td th:text="${user.lastName}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.blocked ? 'Blocked' : 'Active'}"></td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -96,26 +102,26 @@
 
 </main>
 
-<!-- JavaScript code for fetching and populating user data -->
-<script th:inline="javascript">
-    fetch('/admin/manage/listAllUsers')
-        .then(response => response.json())
-        .then(data => {
-            const userTableBody = document.querySelector('.user-table tbody');
+<!--&lt;!&ndash; JavaScript code for fetching and populating user data &ndash;&gt;-->
+<!--<script th:inline="javascript">-->
+<!--    fetch('/admin/manage/listAllUsers')-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--            const userTableBody = document.querySelector('.user-table tbody');-->
 
-            data.forEach(user => {
-                const row = document.createElement('tr');
-                const status = user.blocked  ? 'Blocked' : 'Active';
-                row.innerHTML = `
-                    <td>${user.firstName}</td>
-                    <td>${user.lastName}</td>
-                    <td>${user.email}</td>
-                    <td>${status}</td>
-                `;
-                userTableBody.appendChild(row);
-            });
-        });
-</script>
+<!--            data.forEach(user => {-->
+<!--                const row = document.createElement('tr');-->
+<!--                const status = user.blocked  ? 'Blocked' : 'Active';-->
+<!--                row.innerHTML = `-->
+<!--                    <td>${user.firstName}</td>-->
+<!--                    <td>${user.lastName}</td>-->
+<!--                    <td>${user.email}</td>-->
+<!--                    <td>${status}</td>-->
+<!--                `;-->
+<!--                userTableBody.appendChild(row);-->
+<!--            });-->
+<!--        });-->
+<!--</script>-->
 
 </body>
 

@@ -5,6 +5,23 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <link rel="stylesheet" th:href="@{/css/admin/user/user.css}" />
+    <style>
+        /* Add CSS styles to control label and input layout */
+        .form-group {
+            margin-bottom: 10px; /* Add some vertical spacing between form groups */
+        }
+        .form-group label {
+            display: inline-block; /* Display labels as inline-block elements */
+            width: 100px; /* Adjust the width of labels as needed */
+            text-align: right; /* Align labels to the right for better alignment */
+            margin-right: 10px; /* Add some spacing between labels and input boxes */
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 200px; /* Adjust the width of input fields as needed */
+        }
+    </style>
 </head>
 
 <body>
@@ -31,37 +48,31 @@
 <main role="main">
 
     <section class="panel important">
-        <h2>User Management - Add User</h2>
+        <h2>User Management - Update User</h2>
     </section>
 
     <section class="panel important">
         <h2>Update User Details</h2>
-        <form th:action="@{/admin/manage/addUser}" method="post" >
+        <form th:action="@{/admin/manage/updateUserById/{id}(id=${user.id})}" th:method="post"  th:object="${user}">
             <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" th:value="${user.firstName}" required />
+                <label for="firstName">First Name</label> <!-- Remove the colon from the label -->
+                <input type="text" id="firstName" name="firstName"  th:field="*{firstName}" required />
             </div>
             <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" th:value="${user.lastName}" required />
+                <label for="lastName">Last Name</label> <!-- Remove the colon from the label -->
+                <input type="text" id="lastName" name="lastName" th:field="*{lastName}" required />
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" th:value="${user.email}" required />
+                <label for="email">Username</label> <!-- Remove the colon from the label -->
+                <input type="email" id="email" name="email" th:field="*{email}" autocomplete="off" required />
             </div>
             <div class="form-group">
-                <label for="password">password:</label>
-                <input type="password" id="password" name="password" th:value="${user.password}" required />
-            </div>
-            <div class="form-group">
-                <button type="submit">Update User</button>
+                <button type="submit" class="update-user-button">Add User</button>
             </div>
         </form>
     </section>
 
 </main>
-
-
 
 </body>
 

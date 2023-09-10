@@ -11,7 +11,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -80,5 +82,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepository.findByEmail(username);
+    }
+
+    @Override
+    @Transactional
+    public void updateUser(Long userId, UserDto userDto) throws Exception {
+        User user = userRepository.findById(userId).orElseThrow(()-> new Exception("not found"));
+        System.out.println("in update user , user entity");
+        System.out.println(userDto);
+        System.out.println(user);
+        if (user != null) {
+            user.setFirstName(userDto.getFirstName());
+            user.setLastName(userDto.getLastName());
+            user.setEmail(userDto.getEmail());
+        }
+        System.out.println(user);
+         userRepository.save(user);
     }
 }

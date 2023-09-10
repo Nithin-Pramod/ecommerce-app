@@ -75,4 +75,16 @@ public class UserDto {
     public boolean isBlocked() {
         return blocked;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", blocked=" + blocked +
+                '}';
+    }
 }
