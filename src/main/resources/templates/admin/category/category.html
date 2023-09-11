@@ -4,7 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Panel</title>
-    <link rel="stylesheet" th:href="@{/css/admin/admin.css}" />
+    <link rel="stylesheet" th:href="@{/css/admin/user/user.css}" />
+    <style>
+        .box-container {
+        margin-top: 100px; /* Adjust the margin as needed to move the .box-container down */
+        margin-bottom: 150px;
+            }
+        .box {
+            margin-right: 140px; /* Adjust the margin-right to reduce space between boxes */
+            display: inline-block; /* This ensures the boxes are displayed inline */
+            margin-left: 140px;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,25 +42,19 @@
 <main role="main">
 
     <section class="panel important">
-        <h2>Admin DashBoard</h2>
-        <ul>
-            <li>Information Panel</li>
-        </ul>
+        <h2>Category Management</h2>
     </section>
 
     <section class="panel important">
-        <h2>Write a post</h2>
-        <form th:action="@{${#httpServletRequest.servletPath}}" method="post">
-            <div class="twothirds">
-                Blog title:<br/>
-                <input type="text" name="title" size="40"/><br/><br/>
-                Content:<br/>
-                <textarea name="newstext" rows="15" cols="67"></textarea><br/>
+        <!-- Replace this section with clickable boxes -->
+        <div class="box-container">
+            <div class="box">
+                <a href="/admin/manage/category">List Category</a>
             </div>
-            <div>
-                <input type="submit" name="submit" value="Save" />
+            <div class="box">
+                <a href="/admin/manage/manageCategory">Manage Category</a>
             </div>
-        </form>
+        </div>
     </section>
 
 </main>
